@@ -31,3 +31,9 @@ build/
 
 ### VS Code ###
 .vscode/
+
+.mvn
+.mvn/wrapper/maven-wrapper.properties
+.gitattributes
+.gitignore
+.HELP.md
