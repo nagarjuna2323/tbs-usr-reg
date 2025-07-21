@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 })
 public class Ticket {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)  // Fixed: IDENTITY not Identity
+    @GeneratedValue(strategy = GenerationType.IDENTITY)  
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -30,4 +30,7 @@ public class Ticket {
 
     @Column(nullable = false)
     private LocalDateTime bookedAt;
+    
 }
+
+
