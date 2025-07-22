@@ -24,7 +24,7 @@ public class User {
     @Column(nullable = false, unique = true)
     private String phone;
 
-    @Column(nullable = false)
+    @Column(name = "registration_ip",nullable = false)
     private String registrationIp;
 
     @Column(nullable = false)

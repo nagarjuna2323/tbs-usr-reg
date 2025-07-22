@@ -15,12 +15,27 @@ public class RegistrationController {
     @Autowired
     private RegistrationService registrationService;
 
+    private String getClientIp(HttpServletRequest request) {
+        String xfHeader = request.getHeader("X-Forwarded-For");
+        String ip;
+        if (xfHeader == null || xfHeader.isEmpty()) {
+            ip = request.getRemoteAddr();
+        } else {
+            ip = xfHeader.split(",")[0].trim();
+        }
+        // Normalize IPv6 loopback to IPv4 localhost
+        if ("0:0:0:0:0:0:0:1".equals(ip) || "::1".equals(ip)) {
+            return "127.0.0.1";
+        }
+        return ip;
+    }
+
     @PostMapping
     public RegistrationResponseDto register(
             @RequestBody @Valid RegistrationRequestDto dto,
             HttpServletRequest request
     ) {
-        String clientIp = request.getRemoteAddr();
+        String clientIp = getClientIp(request);
         registrationService.register(dto, clientIp);
         return RegistrationResponseDto.builder()
                 .message("Registration started. OTP sent to user.")
@@ -38,4 +53,5 @@ public class RegistrationController {
                 .otpVerified(verified)
                 .build();
     }
+
 }
