@@ -81,4 +81,12 @@ public class RegistrationService {
         return false;
     }
 
+     @Transactional
+    public void deleteUserByEmail(String email) {
+            Optional<User> userOpt = userRepository.findByEmail(email);
+        if (userOpt.isEmpty()) {
+            throw new IllegalArgumentException("User not found.");
+    }
+    userRepository.delete(userOpt.get());
+}
 }

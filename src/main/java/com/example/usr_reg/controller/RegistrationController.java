@@ -8,6 +8,8 @@ import com.example.usr_reg.service.RegistrationService;
 import com.example.usr_reg.dto.RegistrationRequestDto;
 import com.example.usr_reg.dto.OtpVerificationDto;
 import com.example.usr_reg.dto.RegistrationResponseDto;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 
 @RestController
 @RequestMapping("/api/registration")
@@ -54,4 +56,23 @@ public class RegistrationController {
                 .build();
     }
 
+    @DeleteMapping("/user")
+    public ResponseEntity<RegistrationResponseDto> deleteUser(@RequestParam String email) {
+        try {
+            registrationService.deleteUserByEmail(email);
+            return ResponseEntity.ok(
+                RegistrationResponseDto.builder()
+                    .message("User deleted successfully.")
+                    .otpVerified(false)  // this field can be false or omitted for delete
+                    .build()
+            );
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                RegistrationResponseDto.builder()
+                    .message(e.getMessage())
+                    .otpVerified(false)
+                    .build()
+            );
+        }
+    }
 }

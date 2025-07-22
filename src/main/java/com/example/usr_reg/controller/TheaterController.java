@@ -21,7 +21,6 @@ public class TheaterController {
     @Autowired
     private TheaterService theaterService;
 
-    // CREATE THEATER
     @PostMapping
     public ResponseEntity<TheaterCreateResponseDto> createTheater(
             @RequestBody @Valid TheaterCreateRequestDto dto) {
@@ -52,7 +51,6 @@ public class TheaterController {
         }
     }
 
-    // UPDATE THEATER
     @PutMapping("/{id}")
     public ResponseEntity<TheaterCreateResponseDto> updateTheater(
             @PathVariable Long id,
@@ -84,7 +82,6 @@ public class TheaterController {
         }
     }
 
-    // DELETE THEATER
     @DeleteMapping("/{id}")
     public ResponseEntity<Map<String, Object>> deleteTheater(@PathVariable Long id) {
         try {
@@ -109,7 +106,6 @@ public class TheaterController {
         }
     }
 
-    // GET ALL THEATERS (Optional - for viewing)
     @GetMapping
     public ResponseEntity<List<TheaterResponseDto>> getAllTheaters() {
         try {
@@ -120,7 +116,6 @@ public class TheaterController {
         }
     }
 
-    // GET THEATER BY ID (Optional - for viewing)
     @GetMapping("/{id}")
     public ResponseEntity<TheaterResponseDto> getTheaterById(@PathVariable Long id) {
         try {
